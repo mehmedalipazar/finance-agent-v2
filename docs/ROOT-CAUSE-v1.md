@@ -138,7 +138,7 @@ v1'in "KANIT n=8" ilan ettiği kural, ölçülebilir hâle gelir gelmez **tersin
 - **Kurallar hiçbir zaman mekanik denetlenmedi** — KURAL 1–9 yalnızca cloud rutin
   prompt'unda metin olarak duruyordu ve defter onlara karşı sınanmıyordu. v2'de sayıyla
   ifade edilebilen her kural `scripts/validate_ledger.py` ile commit'ten önce ve CI'da
-  denetlenir (METHODOLOGY §6.4). Prompt'un kendisi repoda tutulmaz.
+  denetlenir (METHODOLOGY §6.4).
 - **Giriş çapası önemsiz:** 14 girişin 3'ü aleyhte, ortalama sapma +%0,11.
 
 ---

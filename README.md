@@ -36,7 +36,6 @@ Ayrıntı: [`docs/ROOT-CAUSE-v1.md`](docs/ROOT-CAUSE-v1.md)
 | Kurallar | Yalnızca metin | Mekanik denetim + 27 test + CI |
 | Günlük okuma yükü | ~390 KB CSV | ~25 KB özet (`ledger_brief.py`), %94 azalma |
 | Veri kesintisi | Defter donuyordu | İkinci kanal (`fetch_closes.py`); defter bağımsız kaynakla 660/660 doğrulandı |
-| Gizlilik | — | Rutin prompt'u repoda tutulmaz; CI sızıntıyı engeller |
 
 ## Repo yapısı
 

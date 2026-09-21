@@ -22,7 +22,7 @@ Denetlenenler:
   metin tavanı  §6.3: ledger hücreleri kısa kalır, uzun gerekçe rapora yazılır
   rapor         son raporun compute_perf.py özet satırlarını AYNEN içerip içermediği
                 (elle "düzeltme" ve ledger'dan SONRA güncellenmemiş bayat çıktı yakalanır)
-  gizlilik      rutin prompt'u repoda İZLENMEZ (routine/, *PROMPT* yolları)
+  gizlilik      yerel çalışma dosyaları git'te izlenmez
 
 Kullanım: python3 scripts/validate_ledger.py [--root DİZİN] [--no-report] [--no-git]
 """
@@ -347,7 +347,7 @@ def check_privacy(root, rep):
         return
     bad = [f for f in out.stdout.splitlines() if FORBIDDEN_PATHS.search(f)]
     if bad:
-        rep.err("gizlilik: rutin prompt'u repoda İZLENMEZ — şu yol(lar) git'ten çıkarılmalı: "
+        rep.err("gizlilik: yerel çalışma dosyası git'te izleniyor — şu yol(lar) git'ten çıkarılmalı: "
                 + ", ".join(bad[:5]))
 
 

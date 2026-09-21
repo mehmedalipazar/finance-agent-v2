@@ -261,7 +261,7 @@ class Validator(Base):
 
     @unittest.skipUnless(shutil.which("git"), "git yok")
     def test_prompt_file_in_repo_is_blocked(self):
-        """2026-09-21: rutin prompt'u public repoya commit edilmişti."""
+        """Yerel çalışma dosyaları (routine/) git'e girmemelidir."""
         root = self.lg.root
         (root / "routine").mkdir()
         (root / "routine" / "PROMPT.md").write_text("gizli", encoding="utf-8")

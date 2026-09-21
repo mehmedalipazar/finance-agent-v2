@@ -34,10 +34,6 @@ doğrudan `main`'e push eder.
 | `.github/workflows/ledger.yml` | Her push'ta testler + `validate_ledger.py` (rutinin push'unu bağımsız denetler) | Elle |
 | `reports/` | Günlük raporlar (insan-okur anlatı katmanı) | Rutin |
 
-**Rutin prompt'u repoda tutulmaz** (repo public). Otoriter kopya claude.ai rutin
-konfigürasyonundadır; `validate_ledger.py` ve CI, `routine/` veya `*PROMPT*` yolunun git'e
-girmesini HATA sayar. Bu belge ve raporlar KURAL numaralarına atıf yapar ama prompt metnini içermez.
-
 ## 3. Fiyat çapası kuralları (KRİTİK)
 
 1. **Skorlama = kesinleşmiş kapanış.** Tüm getiri/alfa hesapları `data/prices.csv`'deki
@@ -264,7 +260,6 @@ denetlenir; **HATA varsa çıkış kodu 1'dir ve commit edilmez.**
 | Günde en fazla 3 yeni tetik | KURAL 9(c) |
 | Metin tavanları | §6.3 |
 | Son rapor, `compute_perf.py` özet satırlarını (A–E) **AYNEN** içerir | §4 "elle hesap yok" + §6 adım 6 |
-| `routine/` veya `*PROMPT*` yolu git'te izlenmiyor | §2 |
 
 Günlük ±%10 limit aşımı ve 40'ın üstünde aktif tetik **UYARI**'dır (commit'i durdurmaz).
 Aynı script her push'ta GitHub Actions'ta da çalışır; rutinin push'u böylece rutinden
