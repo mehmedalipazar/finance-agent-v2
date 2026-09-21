@@ -25,8 +25,18 @@ doğrudan `main`'e push eder.
 | `data/positions.csv` | Pozisyon defteri: giriş tarihi/kapanışı, stop (initial + current), hedef, durum (open / watchlist / closed) | Rutin, yalnızca giriş/çıkış/stop-değişikliğinde |
 | `data/weights.csv` | Günlük örnek portföy ağırlıkları + Δ + değişim tetiği | Rutin, her rapor günü 5 satır ekler |
 | `data/triggers.csv` | Aktif izleme tetikleri (rotasyon, overweight, kesim koşulları) | Rutin, her gün durumları günceller (active/fired/expired) |
-| `scripts/compute_perf.py` | Deterministik getiri/alfa/maks-düşüş hesabı; markdown üretir | Elle (metodoloji değişirse) |
+| `scripts/compute_perf.py` | Deterministik getiri/alfa/kesim maliyeti/model portföy hesabı; markdown üretir (§4) | Elle (metodoloji değişirse) |
+| `scripts/ledger_brief.py` | Günlük LEDGER ÖZETİ: backfill listesi, açık pozisyonlar, son ağırlıklar, aktif tetikler (§6.3) | Elle |
+| `scripts/validate_ledger.py` | Defter kurallarının mekanik denetimi; HATA varsa commit edilmez (§6.4) | Elle |
+| `scripts/fetch_closes.py` | Kesinleşmiş kapanışlar için ikinci kanal (§6.1) | Elle |
+| `scripts/ledger.py` | Yukarıdaki üç script'in ortak yardımcıları (izleme penceresi, seans takvimi, metin tavanları) | Elle |
+| `tests/` | Script testleri — her biri ölçülmüş bir hatayı kilitler (`python3 -m unittest discover -s tests`) | Elle |
+| `.github/workflows/ledger.yml` | Her push'ta testler + `validate_ledger.py` (rutinin push'unu bağımsız denetler) | Elle |
 | `reports/` | Günlük raporlar (insan-okur anlatı katmanı) | Rutin |
+
+**Rutin prompt'u repoda tutulmaz** (repo public). Otoriter kopya claude.ai rutin
+konfigürasyonundadır; `validate_ledger.py` ve CI, `routine/` veya `*PROMPT*` yolunun git'e
+girmesini HATA sayar. Bu belge ve raporlar KURAL numaralarına atıf yapar ama prompt metnini içermez.
 
 ## 3. Fiyat çapası kuralları (KRİTİK)
 
@@ -39,8 +49,9 @@ doğrudan `main`'e push eder.
    Gerekçe: 30 Haz'da XU100 10:32 intraday 14.270 yazılmışken kesin kapanış 14.121 geldi;
    1 Tem'de 10:32 intraday 14.086 iken kesin kapanış 14.350 geldi — intraday çapa alfayı
    ±1-2 puan oynatabiliyor (endeks-print artefaktı).
-3. **Her sabah backfill:** rutin, `get_historical_data` ile bir önceki işlem gününün
-   kapanışlarını (tüm open + watchlist tickerlar + XU100) `prices.csv`'ye ekler.
+3. **Her sabah backfill:** rutin, `get_historical_data` ile eksik işlem günlerinin
+   kapanışlarını (open + watchlist + **kapanmış <60 seans** tickerlar + XU100, §6.2)
+   `prices.csv`'ye ekler. Liste `scripts/ledger_brief.py`'den gelir.
 4. **XU100 kaynağı `get_historical_data`'dır.** (`get_index_data` XU100 için yalnızca
    metadata döndürüyor — bilinen yapısal limit, her gün yeniden raporlanmaz.)
 5. `get_quick_info` BIST'te güvenilmez → kullanılmaz.
@@ -79,9 +90,22 @@ Kapanan **her** pozisyon için `compute_perf.py` şunu hesaplar ve rapora yazar:
 
 ```
 realize alfa      = (çıkış/giriş − 1) − (XU100(çıkış)/XU100(giriş) − 1)
-tutsaydık alfa    = (bugün/giriş − 1) − (XU100(bugün)/XU100(giriş) − 1)
+tutsaydık alfa    = (son/giriş − 1)   − (XU100(son)/XU100(giriş) − 1)
 kesimin faydası   = realize alfa − tutsaydık alfa      (+ ise kesim DOĞRUYDU)
 ```
+
+`son` = ismin **izlenen son kapanışıdır** ve **iki bacak da o tarihte durur** (2026-09-21
+düzeltmesi). 60 seanslık izleme penceresi (§6.2) dolduğunda hisse bacağı donar; eski kod XU100
+bacağını as-of'a uzatmaya devam ediyordu — bu, penceresi dolan her isimde her gün büyüyen
+sahte bir "tutsaydık alfa" üretecekti (ilk vaka Ekim sonunda oluşacaktı; oluşmadan kapatıldı).
+
+**"Ölçülemedi" iki ayrı durumdur** (2026-09-21 düzeltmesi):
+- ⏳ **Henüz ölçülemez:** çıkış as-of seansındadır, çıkış sonrası seans henüz yoktur. İhlal
+  DEĞİLDİR; ilk ölçüm bir sonraki backfill'de gelir. (KURAL 10 gereği yine de kuralın lehine sayılmaz.)
+- ⚠ **Ölçülemedi:** çıkıştan sonra seans geçti ama fiyat yok, ya da izleme 60 seanstan önce
+  kesilmiş. Bu §6.2 ihlalidir.
+Eski kod ikisini de "§6.2 ihlali" diye raporluyordu; 09-21'de VAKBN (çıkış = as-of) için
+sahte alarm üretti.
 
 **Bu bölümün varlık sebebi:** v1'de stop disiplini **yanlışlanamaz** bir iddiaydı.
 Doğrulayan kanıt her kesimde otomatik birikiyordu (n=8 → "KANIT"), çürüten kanıt ise
@@ -95,6 +119,30 @@ hâle gelir gelmez **tersine** çıktı.
 
 **Bağlayıcı sonuç:** bir kesim kuralı, kesim maliyeti bölümünde **net pozitif** olmadan
 "çalışıyor" ilan EDİLEMEZ. Tetiğin ateşlemiş olması kuralın doğruluğu değildir.
+
+### 4.3 MODEL PORTFÖY — 1.000 TL testi (2026-09-21 — `compute_perf.py` §E)
+
+§C eşit ağırlıkla **isim seçimini** ölçer. Ama sermayeyi belirleyen yalnızca isim değildir:
+ağırlık, nakit payı ve zamanlama da belirler. v1 kök neden analizinin en önemli sayısı
+(1.000 TL → 910 TL) **elle, bir kez** hesaplanmıştı ve hiçbir rapor onu üretmiyordu. §E bu
+ölçümü her gün deterministik üretir:
+
+- `weights.csv`'de ilan edilen ağırlıklar (nakit dahil) birebir izlenir;
+- **infaz = rapor gününün kesinleşmiş kapanışı** (rapor 10:30'da yayınlanır, kapanış ondan sonradır);
+- **yalnızca ağırlık DEĞİŞTİĞİNDE işlem yapılır**, Δ=0 gününde pozisyon sürüklenir (raporu
+  izleyen kimse "değişmedi" gününde yeniden dengeleme yapmaz);
+- nakit getirisi %0, işlem maliyeti yok (ikisi de sonucu olduğundan İYİ gösterir);
+- yanında **ağırlık devri** (nakit hariç Σ|Δ|) yazılır — KURAL 9 whipsaw'ının sayısal ölçüsü.
+
+**Doğrulama:** motor v1 defterinde kök neden analizinin sayısını **kuruşu kuruşuna** üretir
+(909,92 TL, 2026-09-16). v2 defterinde aynı tarih **906,67 TL**'dir; fark, aşağıdaki bulgudur.
+
+**Bulgu — çıkışlar infaz edilemeyen fiyata demirli.** `positions.csv` bir kesimi, tetiği
+ateşleyen **önceki** kesinleşmiş kapanışa yazar (ör. TCELL 07-24 → 103,70). Ama o kapanış
+ancak ertesi sabah raporla öğrenilir; raporu izleyen biri en erken **rapor günü** satabilir
+(TCELL 07-27 → 102,30). 10 kesimde fark iki yönlüdür (TUPRS 288,00 → 295,25 lehte; ISCTR
+12,30 → 12,03 aleyhte). §B/§C bu yüzden **karar kalitesini**, §E **elde edilebilir sonucu**
+ölçer; ikisi birlikte okunur ve **paranın cevabı §E'dir.**
 
 ## 5. Yapısal veri limitleri (bir kez burada; günlük DÜRÜSTLÜK bölümünde TEKRARLANMAZ)
 
@@ -141,15 +189,22 @@ Bu kural her isme simetrik uygulanır: 08-27 itibarıyla CCOLA'yı (settled 79,0
 
 ## 6. Günlük rutinin ledger görevleri (sırayla, rapor yazılmadan ÖNCE)
 
-1. `get_historical_data` ile dünün kesinleşmiş kapanışlarını çek → `data/prices.csv`'ye ekle:
-   **open + watchlist + KAPANMIŞ (§6.2) tüm tickerlar + XU100**; hafta sonu/tatil ertesi
-   son işlem günü. Çağrılar **≤3 sembol** halinde bölünür (MCP batch limiti).
-2. `python3 scripts/compute_perf.py` çalıştır → çıktıyı raporun "Gerçekleşen Performans"
-   bölümüne AYNEN yapıştır. UYARI satırı çıkarsa raporda belirt ve düzelt.
-3. Bugünün ağırlıklarını (Δ + tetik gerekçesi) `data/weights.csv`'ye ekle (KURAL 9 anti-whipsaw).
-4. `data/triggers.csv` durumlarını güncelle: tetiklenen → fired (+raporda aksiyon),
+0. `python3 scripts/ledger_brief.py` çalıştır ve çıktısını oku (§6.3). Backfill listesi ve
+   eksik seanslar oradan gelir — modelin hafızasından değil.
+1. `get_historical_data` ile eksik kesinleşmiş kapanışları çek → `data/prices.csv`'ye ekle:
+   **open + watchlist + KAPANMIŞ (§6.2) tüm tickerlar + XU100**. Çağrılar **≤3 sembol**
+   halinde bölünür (MCP batch limiti). MCP kapalıysa ikinci kanal: `scripts/fetch_closes.py` (§6.1).
+   **ATOMİK SEANS:** bir seans ya listedeki TÜM semboller için yazılır ya hiç yazılmaz —
+   aksi hâlde alfa bacakları farklı tarihlerde durur.
+2. `python3 scripts/compute_perf.py` çalıştır → karar girdisi (alfa eşikli tetikler bunu okur).
+3. Pozisyon değişikliği varsa (giriş/çıkış/stop güncellemesi) `data/positions.csv`'yi güncelle.
+4. Bugünün ağırlıklarını (Δ + tetik gerekçesi) `data/weights.csv`'ye ekle (KURAL 9 anti-whipsaw).
+5. `data/triggers.csv` durumlarını güncelle: tetiklenen → fired (+raporda aksiyon),
    geçersizleşen → expired, yeni tetik → yeni satır.
-5. Pozisyon değişikliği varsa (giriş/çıkış/stop güncellemesi) `data/positions.csv`'yi güncelle.
+6. `compute_perf.py`'yi **ledger'ın SON hâliyle YENİDEN** çalıştır → çıktıyı raporun
+   "Gerçekleşen Performans" bölümüne AYNEN yapıştır (A–E bölümlerinin tamamı). 2. adımın
+   çıktısı, 3–5. adımlar defteri değiştirdiyse BAYATTIR.
+7. `python3 scripts/validate_ledger.py` → **HATA = 0 olmadan commit edilmez** (§6.4).
 
 ### 6.2 ÇIKAN İSİM İZLENMEYE DEVAM EDER (v2 — KÖK SEBEP DÜZELTMESİ)
 
@@ -165,8 +220,56 @@ sebep oldu. Sistem 2026-09-01'de kök sebebi kendisi teşhis etti
 standardı gereği **"n=3 → HİPOTEZ, üç vaka örüntü değildir"** diye rafa kaldırdı ve
 davranış değişmedi. n asla 4 olamazdı, çünkü veriyi defterin kendisi siliyordu.
 
-**İhlal testi:** `compute_perf.py` §D'de "ölçülemedi" satırı varsa bu kural ihlal
-edilmiştir ve rapor bunu DÜRÜSTLÜK bölümünde açıkça yazar.
+**İhlal testi:** `compute_perf.py` §D'de **⚠ "ölçülemedi"** veya **⚠ "izleme … kesilmiş"**
+satırı varsa bu kural ihlal edilmiştir ve rapor bunu DÜRÜSTLÜK bölümünde açıkça yazar.
+⏳ "henüz ölçülemez" satırı ihlal DEĞİLDİR (§4.2). Aynı kural `validate_ledger.py`'de
+HATA'dır: izleme penceresindeki tek bir eksik seans commit'i durdurur. Hangi ismin hâlâ
+izlendiğini `ledger_brief.py` §1 söyler (çıkıştan bu yana geçen seans sayısıyla).
+
+### 6.3 LEDGER ÖZETİ ve METİN TAVANI (2026-09-21)
+
+**Ölçüm:** `weights.csv` + `triggers.csv` 2026-09-21'de **~390 KB**'a ulaştı. `weights.csv`'nin
+`trigger` hücresi Haziran'da ortalama **25** karakterdi, Eylül'de **717**; tek hücre 1.620
+karaktere çıktı ve 09-21'de aynı 1.200 karakterlik kesinti metni dört satıra kopyalandı.
+Rutin her sabah dört CSV'nin tamamını okuduğu için bu, koşu başına ~130 bin token ve
+**sınırsız büyüyen** bir maliyetti — §7'de rapor arşivi için kapatılan O(n²) sorununun
+ledger'daki ikizi.
+
+**Kural 1 — özet okunur, CSV değil.** Rutin güne `python3 scripts/ledger_brief.py` ile başlar
+(~25 KB, %94 daha az). Özet; backfill listesini, açık pozisyonları (stop tamponuyla), son
+ağırlıkları, aktif tetikleri (satır numarasıyla) ve kapanmış pozisyonları verir. Ayrıntı
+gerekiyorsa yalnızca ilgili satıra bakılır.
+
+**Kural 2 — ledger hücresi özet taşır, gerekçe rapora yazılır.** 2026-09-21'den itibaren
+yazılan satırlarda tavanlar: `weights.trigger` **280**, `triggers.condition` **300**,
+`triggers.action` **200**, `triggers.notes` **300**, `positions.exit_reason` **400** karakter.
+Uzun gerekçe raporun ilgili bölümüne yazılır; hücreye özeti ve `bkz. rapor YYYY-MM-DD §N`
+atfı girer. Tavanı aşan satır `validate_ledger.py`'de HATA'dır.
+
+### 6.4 MEKANİK DOĞRULAMA — `validate_ledger.py` (2026-09-21)
+
+v1'in kök sebebi, kuralların yalnızca **metin** olarak var olmasıydı: defter kendi
+kurallarına karşı hiçbir zaman mekanik olarak denetlenmedi, ihlaller aylar sonra elle
+yapılan bir incelemede bulundu. Sayıyla ifade edilebilen her kural artık commit'ten ÖNCE
+denetlenir; **HATA varsa çıkış kodu 1'dir ve commit edilmez.**
+
+| Denetim | Kaynak kural |
+|---|---|
+| `prices.csv`: yinelenen satır, hafta sonu/gelecek tarih, **18:15 TRT'den önce yazılmış bugünün kapanışı** | §3.2 (intraday deftere girmez) |
+| ATOMİK SEANS: XU100'de olmayan tarihte hisse satırı | §6 adım 1 |
+| İzleme penceresinde eksik seans (açık / izleme / kapanmış <60 seans) | §6.2 — v1 kök sebebi |
+| `entry_close` / `exit_close` = `prices.csv` kapanışı (±%0,5) | §4 |
+| Ağırlık toplamı = 100; Δ = ağırlık − dünkü ağırlık; ağırlığı olan isim AÇIK | KURAL 9 |
+| Kapanmış isme ait `active` tetik | v1'de 20 bayat tetik |
+| Günde en fazla 3 yeni tetik | KURAL 9(c) |
+| Metin tavanları | §6.3 |
+| Son rapor, `compute_perf.py` özet satırlarını (A–E) **AYNEN** içerir | §4 "elle hesap yok" + §6 adım 6 |
+| `routine/` veya `*PROMPT*` yolu git'te izlenmiyor | §2 |
+
+Günlük ±%10 limit aşımı ve 40'ın üstünde aktif tetik **UYARI**'dır (commit'i durdurmaz).
+Aynı script her push'ta GitHub Actions'ta da çalışır; rutinin push'u böylece rutinden
+bağımsız denetlenir. Düzeltilemeyen bir HATA (ör. kaynak kapalı) varsa rutin o değişikliği
+**geri alır** (seansı hiç yazmaz), HATA'yı bastırmaz.
 
 ## 6.1 VERİ KESİNTİSİ PROTOKOLÜ (2026-08-28'de resmileşti)
 
@@ -177,7 +280,18 @@ lafzî çelişkiyi kapatır.
 
 **Kesinti tanımı (iki kanal birden kapalı):**
 1. `borsamcp-new` araçları oturuma yüklenmedi (araç kaydı = 0) **veya** sunucu bağlanamadı; **ve**
-2. doğrudan HTTP yedeği egress politikasınca reddedildi (proxy `connect_rejected` / 403).
+2. ikinci kanal `python3 scripts/fetch_closes.py` **çıkış kodu 2** döndürdü (egress politikası
+   reddetti / kaynak kapalı). Bu tek komut, eskiden her kesintide elle 7 host'a atılan curl
+   denemelerinin yerini alır; çıktısı raporda kesintinin kanıtıdır.
+
+**İkinci kanalın kapsamı:** `fetch_closes.py` Yahoo Finance chart API'sini kullanır — bu,
+`get_historical_data`'nın (yfinance) **aynı birincil kaynağıdır**, yalnızca taşıma farklıdır;
+§3'ü gevşetmez. 2026-09-21'de defterin tamamı bu kanalla çapraz doğrulandı: **660 hücrenin
+660'ı uyuştu** (eşik %0,5). Kanal yalnızca **kesinleşmiş kapanışları** verir: MCP kapalı ama
+ikinci kanal açıksa `prices.csv` güncellenir, settled-close tetikleri (stop, ardışık kapanış
+sayaçları) ölçülür ve `compute_perf.py` taze çalışır; **5 hisse listesi yine üretilmez**
+(intraday fiyat, temel veri ve tarama yoktur — KURAL 2). Bu "kısmi kesinti"dir ve raporda
+böyle etiketlenir. Bugünün barı 18:15 TRT'den önce alınmaz; seans ATOMİK yazılır.
 
 **Kesinti günü davranışı — sırayla:**
 1. **5 hisse listesi ÜRETİLMEZ.** KURAL 2 (fiyatı doğrulanamayan hisse listeye alınmaz)

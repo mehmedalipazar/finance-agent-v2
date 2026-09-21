@@ -1,0 +1,9 @@
+# Cloud rutinin prompt'u repoda TUTULMAZ (repo public). Otoriter kopya claude.ai rutin
+# konfigürasyonundadır; burada yalnızca yerel, git dışı bir çalışma kopyası durur.
+routine/
+*PROMPT*
+*.prompt.md
+
+__pycache__/
+*.pyc
+.DS_Store

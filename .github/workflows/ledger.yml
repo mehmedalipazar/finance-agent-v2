@@ -1,0 +1,28 @@
+name: ledger
+
+# Rutin her sabah doğrudan main'e push eder. Bu iş akışı o push'u bağımsız olarak denetler:
+# script testleri + defter kuralları (METHODOLOGY §6.4) + rutin prompt'unun repoya sızmadığı.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Script testleri
+        run: python3 -m unittest discover -s tests -v
+      - name: Performans hesabı çalışıyor mu
+        run: python3 scripts/compute_perf.py > /dev/null
+      - name: Defter kuralları + gizlilik
+        run: python3 scripts/validate_ledger.py

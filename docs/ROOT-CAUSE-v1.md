@@ -135,8 +135,10 @@ v1'in "KANIT n=8" ilan ettiği kural, ölçülebilir hâle gelir gelmez **tersin
 - **Yoğunlaşma sorgulanmadı.** GARAN 62 günün 62'sinde portföyde, ortalama %23,2
   ağırlık, dönem boyunca negatif katkı. Stop 118'e hiç değmediği için hiçbir tetik
   onu sorgulamadı.
-- **KURAL 1–9 repoda hiç tanımlı değildi** — yalnızca cloud rutin prompt'unda.
-  Repo kendi kurallarına karşı denetlenemiyordu. v2'de `routine/PROMPT.md` repoda.
+- **Kurallar hiçbir zaman mekanik denetlenmedi** — KURAL 1–9 yalnızca cloud rutin
+  prompt'unda metin olarak duruyordu ve defter onlara karşı sınanmıyordu. v2'de sayıyla
+  ifade edilebilen her kural `scripts/validate_ledger.py` ile commit'ten önce ve CI'da
+  denetlenir (METHODOLOGY §6.4). Prompt'un kendisi repoda tutulmaz.
 - **Giriş çapası önemsiz:** 14 girişin 3'ü aleyhte, ortalama sapma +%0,11.
 
 ---
@@ -151,5 +153,5 @@ v1'in "KANIT n=8" ilan ettiği kural, ölçülebilir hâle gelir gelmez **tersin
 | 4 | Günlük seri **survivorship-free** (o gün fiilen açık pozisyonlar) | §4 |
 | 5 | **Simetrik kanıt standardı** — ölçülemeyen vaka kural lehine sayılmaz | §7.1 |
 | 6 | **Tetik ufku ile tez ufku uyumu** — tek seans kesim tetiği olamaz | §7.2 |
-| 7 | KURAL 1–9 repoda | `routine/PROMPT.md` |
+| 7 | Kurallar mekanik denetleniyor | METHODOLOGY §6.4 + `validate_ledger.py` |
 | 8 | Geriye dönük backfill: 196 satır, 0 çatışma, 0 delik | `data/prices.csv` |
