@@ -1,5 +1,7 @@
 # finance-agent v2 — Günlük BIST100 Rapor Sistemi
 
+[![ledger](https://github.com/mehmedalipazar/finance-agent-v2/actions/workflows/ledger.yml/badge.svg)](https://github.com/mehmedalipazar/finance-agent-v2/actions/workflows/ledger.yml)
+
 Hafta içi her sabah ~10:30 TRT'de çalışan bir Claude Code cloud rutini, borsa-mcp üzerinden
 canlı BIST verisi çekip günün yatırım komitesi raporunu üretir ve doğrudan `main`'e push eder.
 Her rapor, önceki önerilerin gerçekleşen performansını **XU100'e göre rölatif (alfa)** olarak

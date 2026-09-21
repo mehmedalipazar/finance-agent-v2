@@ -182,7 +182,8 @@ def check_positions(root, rep, prices, bench_dates):
                 rep.warn(f"{tag}: giriş {ed} henüz kesinleşmedi — entry_close PROVİZYONEL, "
                          f"ilk backfill'de doğrulanmalı.")
         elif ec is not None and abs(px - ec) / ec > 0.005:
-            rep.err(f"{tag}: entry_close {ec} ≠ prices.csv {ed} kapanışı {px} (>%0,5).")
+            rep.err(f"{tag}: entry_close {ec} ≠ prices.csv {ed} kapanışı {px} (>%0,5). Giriş günü artık "
+                    f"kesinleşti: entry_close'u {px} yap (seans içi değer report_price'ta kalır — METHODOLOGY §4).")
     return rows
 
 
