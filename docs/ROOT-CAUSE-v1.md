@@ -1,7 +1,8 @@
 # v1 Kök Neden Analizi — neden 3 ayda sermaye kaybettik
 
 **Kapsam:** 2026-06-16 → 2026-09-17, 66 rapor, 62 ağırlık günü, 14 pozisyon, 211 tetik.
-**Yöntem:** `data/*.csv` üzerinden bağımsız backtest + 66 raporun tam okunması.
+**Yöntem:** `data/*.csv` üzerinden bağımsız backtest + 66 raporun tam okunması
+(raporlar: `github.com/mehmedalipazar/finance-agent`, `reports/`).
 Tüm sayılar `data/prices.csv`'den yeniden üretilebilir.
 
 ---

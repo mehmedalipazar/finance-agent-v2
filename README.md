@@ -22,7 +22,7 @@ ilk portföye hiç dokunulmasaydı **1.047 TL**. Manşet metrik bunu göstermiyo
 açık pozisyonları sayıyordu. Kök sebep: satılan hissenin fiyatı defterden düşüyor, dolayısıyla
 "stop kuralı işe yarıyor" iddiası hiçbir zaman sınanamıyordu. Eksik fiyatlar geriye dönük
 tamamlandığında 9 kesimin 8'inin alfa kaybettirdiği görüldü.
-Ayrıntı: [`docs/ROOT-CAUSE-v1.md`](docs/ROOT-CAUSE-v1.md)
+Ayrıntı: [`docs/ROOT-CAUSE-v1.md`](docs/ROOT-CAUSE-v1.md) · v1 rapor arşivi: [finance-agent](https://github.com/mehmedalipazar/finance-agent)
 
 ## İyileştirmeler
 
@@ -40,7 +40,7 @@ Ayrıntı: [`docs/ROOT-CAUSE-v1.md`](docs/ROOT-CAUSE-v1.md)
 ## Repo yapısı
 
 ```
-reports/      Günlük raporlar
+reports/      Günlük raporlar (v2)
 data/         Defter: prices · positions · weights · triggers (CSV)
 scripts/      compute_perf · ledger_brief · validate_ledger · fetch_closes
 tests/        Script testleri

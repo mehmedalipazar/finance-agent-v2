@@ -5,7 +5,7 @@
 > (1.000 TL → 910 TL; dokunulmasaydı 1.047 TL). Kök sebep tek bir mekanizmaydı:
 > **kesilen ismin fiyatı defterden düşüyordu**, dolayısıyla "stop disiplini çalışıyor"
 > iddiasını çürütecek veri yapısal olarak üretilemiyordu. §4.2, §6.2 ve §7 bunu kapatır.
-> Tam kök-neden analizi: `docs/ROOT-CAUSE-v1.md`.
+> Tam kök-neden analizi: `docs/ROOT-CAUSE-v1.md`. v1 raporları bu repoda tutulmaz (§8).
 
 Bu belge, günlük raporların ve performans defterinin (ledger) tek otoriter metodoloji kaynağıdır.
 Günlük raporlar buradaki kurallara uyar; kurallar değişecekse ÖNCE bu dosya güncellenir.
@@ -324,6 +324,7 @@ kesinti günlerinde de kullanılmaz.
   dünkü rapordan devralınır ve günün kanıtıyla güncellenir.
 - **Ayın ilk iş günü:** tüm `reports/` arşivi baştan okunur (derin örüntü çıkarımı,
   öğrenimlerin sıfırdan doğrulanması). Diğer günler arşiv taraması yapılmaz (maliyet O(n²) büyüyordu).
+  v1 dönemi raporları bu arşivde değildir (§8); o dönemin kanıtı ledger'dadır.
 - Örneklem küçükken (≲30 seans) örüntüler "kanıt" değil "HİPOTEZ" olarak işaretlenir.
 
 ### 7.1 SİMETRİK KANIT STANDARDI (v2 — kök sebep düzeltmesi)
@@ -358,6 +359,9 @@ gerektirir. Hard stop (sermaye koruma) bunun istisnasıdır ve yalnızca girişt
 
 ## 8. Tarihçe notları
 
+- v1 dönemi raporları (2026-06-16 → 09-17, 66 adet) bu repoda tutulmaz; arşiv:
+  `github.com/mehmedalipazar/finance-agent` (`reports/`). O dönemin ölçülebilir kaydı bu
+  ledger'dadır (`data/*.csv`, 2026-06-16'dan itibaren). Aşağıdaki iki not o arşive aittir.
 - 2026-06-20 ve 2026-06-21 raporları eski günlük-cron döneminden kalmadır (Cmt/Paz, seans yok);
   `prices.csv`'de bu tarihler yoktur. 25 Haz'dan beri cron yalnızca hafta içi çalışır.
 - 2026-06-16 → 07-01 raporlarındaki performans tabloları intraday çapalıydı; 2026-07-02
