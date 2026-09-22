@@ -183,6 +183,41 @@ sinyali olarak raporlanır (RSI yüksekse giriş **starter** boyutta yapılır).
 Bu kural her isme simetrik uygulanır: 08-27 itibarıyla CCOLA'yı (settled 79,00 < ema20 81,44)
 **açmaz**, AEFES'i (büyüme bacağı başarısız) **açmaz**.
 
+### 5.3 BÜYÜME BACAĞI **FAALİYET KÂRIYLA** ÖLÇÜLÜR (2026-09-22)
+
+2026-09-21 raporu §10'da ölçtü ve **ön-kayıt etti**: "ucuz + net kârı artan" filtresi, faaliyeti
+daralan şirketleri sistematik olarak içeri alıyor. 7/7 isimde reel faaliyet kârı negatifti
+(AKSA, SAHOL, DOHOL, ALARK, ENKAI, ISMEN, SISE); net kâr sıçramaları **finansman gideri
+normalleşmesinden** veya **tek seferlik yatırım gelirinden** geliyordu. 09-22'de üç vaka daha
+ölçüldü (CWENE: net **+%44,1 REEL**, faaliyet **−%16,7 REEL** · PETKM: net kârda, faaliyet
+**zararda** · MPARK: net +%4,5 nominal, faaliyet **−%33,2 REEL**) ve dört isim ham hâliyle aynı
+kalıbı gösterdi (THYAO F/K **3,04** ama faaliyet kârı **kârdan zarara**; ULKER F/K 7,17,
+faaliyet −%37,9; GESAN faaliyet −%29,8 REEL; GLRMK faaliyet −%16,9 REEL). **n=10 ve işaret
+tutarlı.**
+
+**Kural (2026-09-22'den itibaren bağlayıcı).** SEÇİM KRİTERİ'nin büyüme bacağı şudur:
+
+> **Faaliyet kârı (FAALİYET KARI/ZARARI) YoY REEL pozitif VEYA faaliyet zarardan kâra dönmüş.**
+
+- "REEL" = nominal YoY büyüme > son açıklanan TÜFE YoY (§5'in L55 düzeltmesi burada da geçerli).
+- Ölçüm `get_financial_statements period=quarterly last_n=12` ile yapılır (L77); BIST kalemleri
+  **yıl-içi kümülatiftir**, dolayısıyla `2026Q2` sütunu doğrudan H1-2026'dır ve karşılığı
+  `2025Q2` sütunudur. Q1+Q2 **toplanmaz**.
+- **Net kâr büyümesi tek başına bu bacağı GEÇİRMEZ.** Net kâr ayrıca raporlanır.
+- **Bankalar ve sigorta şirketleri istisnadır** (faaliyet kârı kalemi yapısal olarak
+  karşılaştırılabilir değil, §5'teki EV/FAVÖK istisnasıyla aynı gerekçe): onlarda bacak
+  **KAP-teyitli EPS beat** ile ölçülmeye devam eder.
+
+**Bu bir SIKILAŞTIRMADIR ve listeyi daraltır.** 09-22'de uygulandığında AKSA ve SAHOL alım
+listesinden düşmüş, liste 5'ten 4'e inmiştir. Kural, bir raporun sonucuna bakılarak değil,
+bir gün önce ön-kayıt edilerek yazılmıştır (§7.1 madde 4).
+
+**ÇÜRÜTME TESTİ (KURAL 10 — bu kural da yanlışlanabilir olmalıdır).** Bu bacak yüzünden
+**elenen** isimler `triggers.csv`'de kaydedilir ve 60 seans boyunca izlenir. Elenen isimlerin
+eşit-ağırlık alfası, aynı dönemde **alınan** isimlerin alfasını **aşarsa**, kural yanlışlanmış
+sayılır ve METHODOLOGY'den geri alınır. Kuralın "çalıştığı", elediği isim sayısıyla DEĞİL,
+yalnızca bu ölçümle ilan edilebilir — v1'in stop disiplininde yaptığı hatanın tekrarı yasaktır.
+
 ## 6. Günlük rutinin ledger görevleri (sırayla, rapor yazılmadan ÖNCE)
 
 0. `python3 scripts/ledger_brief.py` çalıştır ve çıktısını oku (§6.3). Backfill listesi ve
@@ -356,6 +391,30 @@ Orta-vadeli (6–24 ay) tezde tek-seans kapanışı bir kesim tetiği OLAMAZ; ke
 **üç ardışık kesinleşmiş kapanış** veya **tezin bir bacağının taze veriyle çökmesi**
 gerektirir. Hard stop (sermaye koruma) bunun istisnasıdır ve yalnızca girişten
 %−15 veya daha derin bir seviyede tanımlanabilir.
+
+### 7.3 NAKİT TAVANI VE DAĞITIM MEKANİZMASI (2026-09-22)
+
+**Tetikleyen ölçüm (L208, 3/3):** ilan edilen nakit 2026-09-17 (%45), 09-21 (%42) ve 09-22
+(%42) ile **üç ardışık rapor günü** %40 tavanının üzerinde kaldı. ROOT-CAUSE §3 bu durumun
+maliyetini ölçmüştü: v1'de nakit "bir piyasa görüşü değil, iki mekanik kesimin kalıntısı"ydı
+ve **yanlış zamanda** yüksekti (Haz–Tem %0–2 piyasa düşerken, Eylül %35–45 hasardan sonra).
+Satış kapıları koşulsuz ateşlerken alış kapılarının açılmaması, §7.1'in "tek yönlü cırcır"ıdır.
+
+**Kural.** İlan edilen nakit payı üç ardışık rapor gününde %40'ı aşarsa, aşan kısım
+(`nakit − %40`) şu **iki bantlı** mekanizmayla ele alınır:
+
+| Bant | Davranış |
+|---|---|
+| **%40 < nakit ≤ %45** | Fazlalık, o günün hunisinde **dört bacağın DÖRDÜNÜ de** (değer · §5.3 reel faaliyet büyümesi · **tarihi doğrulanmış** KAP katalizörü · settled kapanış ema20 üzeri) geçen en yüksek skorlu isme starter olarak verilir. Geçen isim YOKSA işlem yapılmaz; rapor **hangi ismin hangi bacakta düştüğünü** yazar ve sayaç işlemeye devam eder. |
+| **nakit > %45** | Dağıtım **ZORUNLUDUR**. Dört bacağı geçen isim yoksa, fazlalık **üç bacağı** geçen en yüksek skorlu isme starter olarak verilir; o da yoksa, ölçülen alfası en yüksek **ve tez bacakları sağlam** açık pozisyona eklenir. Yoğunlaşma tavanları (riskli-varlık payı, sektör tavanı) her hâlükârda bağlayıcıdır. |
+
+- Dağıtım tek seansta en fazla **5 puandır**; kalan fazlalık ertesi rapor gününe devreder.
+- **"Nakit tezi yazmak" artık dağıtımın alternatifi DEĞİLDİR.** L127'nin "ya nakit tezi yaz ya
+  giriş yap" seçeneği, tezi yazıp hiçbir şey yapmamayı meşrulaştırıyordu; kaldırılmıştır.
+  Nakit tezi **yazılmaya devam eder**, ama dağıtım kararının yerine geçmez.
+- Bilanço öncesi ekleme yasağı (rapor 2026-09-21 §13 ön-kaydı: 28–29 Ekim'e kadar GARAN, TOASO
+  ve TUPRS'ta ağırlık artışı yok) bu mekanizmanın **üzerindedir** — yani %45 üstü zorunlu
+  dağıtım o üç isme YAPILAMAZ, yeni bir isim bulunmak zorundadır.
 
 ## 8. Tarihçe notları
 
