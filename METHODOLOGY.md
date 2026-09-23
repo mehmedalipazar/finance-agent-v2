@@ -150,6 +150,8 @@ ancak ertesi sabah raporla öğrenilir; raporu izleyen biri en erken **rapor gü
 | `get_economic_calendar` sık boş | `get_macro_data` + `get_bond_yields` + son PPK kararı [kaynaklı] |
 | `get_news` (KAP/mynet akışı) sistematik olarak **boş** dönüyor — araç hata vermiyor, `successful_count: 1` ile sıfır kalem döndürüyor (2026-09-09'da n=4 eşiğine ulaşıldı: 08-27, 09-04, 09-08, 09-09) | Katalizör bacağının **resmî** kanıtı `get_earnings`'in **KAP bilanço tarihi + EPS beat**'idir. **Sınırı:** bilanço-dışı katalizörler (ihale, kapasite, sözleşme, ortaklık yapısı) bu araç setiyle **tespit edilemez** — bu, açıklanamayan fiyat hareketlerinin kalıcı bir kör noktasıdır ve bir hareketi "tez teyidi" saymamak için gerekçedir |
 | `get_evds_data` API anahtarı istiyor (hosted MCP'de yok) | Katalog dışı EVDS verisine güvenilmez |
+| `screen_securities(bist, value_stocks)` **sayısal alan döndürmüyor** — yalnızca sembol+isim, `additional_data` boş; araç hata vermiyor (2026-09-23'te n=3 eşiğine ulaşıldı: 09-21, 09-22, 09-23) | İkinci tarama kanalı yalnızca **aday havuzu** üretir; değer sıralaması `get_financial_ratios` + `get_sector_comparison` ile yapılır |
+| `get_sector_comparison` emsaller için **EV/FAVÖK döndürmüyor** (yalnızca F/K + PD/DD) | §5.4'ün kol (ii) medyanı `get_financial_ratios` ile emsal emsal çekilir; en büyük ≥8 emsalden hesaplanır ve rapor kaç emsalle ölçüldüğünü yazar |
 | **RSI-14 iki araçta AYRIŞIYOR:** `get_technical_analysis` (Wilder) ile `scan_stocks` sistematik olarak farklı okuma döndürüyor; fark isme göre 0,1–17,1 puan (2026-09-11'de n=4 eşiğine ulaşıldı: 09-08, 09-09, 09-10, 09-11 — TUPRS'ta 14,0 / 14,0 / 17,1 / 14,0 puan). Hangisinin doğru olduğu bu araç setiyle çözülemiyor | **Kararda MUHAFAZAKÂR okuma bağlayıcıdır** (bir eşiği geçmemek lehimize ise yüksek okuma, geçmek lehimize ise düşük okuma); raporda **iki değer de** gösterilir. RSI zaten tek başına karar üretmez — §5.2 gereği yalnızca pozisyon boyutlandırmasında uyarı sinyalidir |
 
 Günlük DÜRÜSTLÜK bölümü yalnızca **o güne özgü** gerçek veri boşluklarını yazar.
@@ -217,6 +219,48 @@ bir gün önce ön-kayıt edilerek yazılmıştır (§7.1 madde 4).
 eşit-ağırlık alfası, aynı dönemde **alınan** isimlerin alfasını **aşarsa**, kural yanlışlanmış
 sayılır ve METHODOLOGY'den geri alınır. Kuralın "çalıştığı", elediği isim sayısıyla DEĞİL,
 yalnızca bu ölçümle ilan edilebilir — v1'in stop disiplininde yaptığı hatanın tekrarı yasaktır.
+
+### 5.4 DEĞER BACAĞININ "VEYA" KOLU: EV/FAVÖK EŞİĞİ (2026-09-23)
+
+**Tetikleyen ölçüm (2026-09-22 raporu §4, ÖN-KAYIT).** SEÇİM KRİTERİ değer bacağını
+*"F/K sektör medyanının altında **VEYA** net borç/FAVÖK < 2 (EV/FAVÖK ikamesi)"* diye yazıyor.
+Ama **EV/FAVÖK kolunun eşiği hiçbir yerde tanımlı değildi** (L81, 2026-08-25). Sonuç ölçüldü:
+BIMAS **beş ardışık rapor gününde** yalnızca F/K kolundan elendi; EV/FAVÖK kolundan **geçmesi de
+reddedilmesi de imkânsızdı** — kol yapısal olarak **asla açılmayan** bir kapıydı. Bu, ROOT-CAUSE §3'ün
+"tek yönlü cırcır"ının değer bacağındaki ikizidir: bir "VEYA" kolu ölçülemiyorsa, disjonksiyon
+fiilen tek bacaklıdır (7.15 öğrenimindeki "en kolay sağlanan bacak fiilen tek bacaktır" yapısının aynadaki hâli).
+
+**Kural (2026-09-23'ten itibaren bağlayıcı).** Değer bacağı şu **iki koldan biriyle** geçilir:
+
+> **(i) F/K < hedef HARİÇ emsal medyanı** (§5.1), **VEYA**
+> **(ii) EV/FAVÖK < hedef HARİÇ emsal medyanı.**
+
+- İki kol **simetriktir**: aynı emsal kümesi, aynı ex-target düzeltmesi, aynı ortanca yöntemi.
+- Eşik **sabit bir sayı değildir** (ör. "EV/FAVÖK < 8"); sabit eşik rejim değiştiğinde ya hepsini
+  geçirir ya hiçbirini. §5.1'in F/K kolunda verdiği gerekçe burada da geçerlidir.
+- **Ölçüm maliyeti ve sınırı:** `get_sector_comparison` emsaller için **yalnızca F/K ve PD/DD**
+  döndürür, EV/FAVÖK döndürmez. Ex-target EV/FAVÖK medyanı bu yüzden `get_financial_ratios`
+  ile **emsal emsal** çekilir ve araç ≤2 sembollü çağrı ister (L209). Pratik sınır: medyan,
+  **piyasa değerine göre en büyük ≥8 emsalden** hesaplanır ve rapor **kaç emsalle** ölçüldüğünü
+  yazar. Tam emsal kümesi çekilemediğinde bu bir **yaklaşıklıktır** ve öyle etiketlenir.
+- Kol, eşiği ölçülemiyorsa **"geçti" sayılmaz** — ama artık "ölçülemedi" de **"RED" demek değildir**
+  (§4.2'nin ⏳/⚠ ayrımı burada da geçerli): rapor hangisi olduğunu yazar.
+
+**BU BİR GEVŞETME DEĞİL, BİR SİMETRİ DÜZELTMESİDİR — ve ilk gün İKİ YÖNE DE işledi.**
+2026-09-23'te ilk uygulamada:
+- **BIMAS** kolu **KAPATTI**: EV/FAVÖK **9,8** vs XUHIZ ex-target medyan **5,75** (n=8) → kol da
+  düştü. Yani kuralı yazmak BIMAS'ı kurtarmadı; 6. kez alım listesi dışında kaldı.
+- **TRMET** kolu **AÇTI**: F/K **23,76** > XUSIN ex-target medyan **20,74** (kol i düştü) ama
+  EV/FAVÖK **3,2** < ex-target medyan **7,7** (n=9) → kol ii geçti.
+
+Bir kolun ilk gününde hem bir ismi elemesi hem bir ismi içeri alması, kolun **tek yönlü
+olmadığının** doğrudan kanıtıdır. v1'in kural yazma kusuru buydu: yazılan her kural yalnızca
+**eleyebiliyordu**.
+
+**ÇÜRÜTME TESTİ (KURAL 10).** Yalnızca **kol (ii) sayesinde** listeye giren isimler
+`triggers.csv`'de işaretlenir ve 60 seans izlenir. Bu kohortun eşit-ağırlık alfası, aynı dönemde
+**yalnızca kol (i) ile** giren isimlerin alfasının **altında kalırsa**, kol (ii) METHODOLOGY'den
+geri alınır. Kolun "çalıştığı", kaç ismi içeri aldığıyla DEĞİL, yalnızca bu ölçümle ilan edilebilir.
 
 ## 6. Günlük rutinin ledger görevleri (sırayla, rapor yazılmadan ÖNCE)
 
