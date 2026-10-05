@@ -395,3 +395,8 @@ date,ticker,weight_pct,delta_pp,trigger
 2026-09-30,TUPRS,10,0,KISMI VERI KESINTISI -> OLCULEMEDI (6.1): borsamcp-new 503; fetch_closes exit 3 (09-29 hisse barlari kaynakta NULL) -> 09-29 ATOMIK yazilamadi. KURAL 9: tetik olculemiyorsa SABIT. L94 ema20 1/3 DONDU. bkz. rapor 2026-09-30 S4
 2026-09-30,TOASO,8,0,KISMI VERI KESINTISI -> OLCULEMEDI (6.1): borsamcp-new 503; fetch_closes exit 3 (09-29 hisse barlari kaynakta NULL) -> 09-29 ATOMIK yazilamadi. KURAL 9: tetik olculemiyorsa SABIT. L216 1/3 DONDU. bkz. rapor 2026-09-30 S4
 2026-09-30,CASH,42,0,KISMI VERI KESINTISI -> OLCULEMEDI (6.1): borsamcp-new 503; fetch_closes exit 3 (09-29 hisse barlari kaynakta NULL) -> 09-29 ATOMIK yazilamadi. KURAL 9: tetik olculemiyorsa SABIT. 7.3 Bant 1: tarama yok (KURAL 2). bkz. rapor 2026-09-30 S4
+2026-10-05,GARAN,22,0,"tetik yok -> SABIT. L27: <120 0/3, settled RSI 09-30 38,04 (>=38). L226 FIRED: rejim bacagi yeniden yazildi, tez EPS+deger. Bilanco oncesi ekleme yasagi (KAP 10-28). bkz. rapor 2026-10-05 S5"
+2026-10-05,BIMAS,13,-5,"L124 FIRED 10-02: uc ardisik settled <settled-EMA20 (418,50/408,00/414,00) -> %18->%13 TRIM. L202 405 sayaci 0/3. bkz. rapor 2026-10-05 S3"
+2026-10-05,TUPRS,5,-5,"L94 trim bacagi FIRED 09-30: uc ardisik settled <settled-EMA20 (398,25/383,25/376,25) -> %10->%5. 345 sayaci 0/3. bkz. rapor 2026-10-05 S3"
+2026-10-05,TOASO,4,-4,"L216 trim bacagi FIRED 09-30: uc ardisik settled <settled-EMA20 (278,75/277,00/262,00), yeni katalizor yok -> %8->%4. Stop 242. bkz. rapor 2026-10-05 S3"
+2026-10-05,CASH,56,14,Uc trimin mekanik sonucu (+14). 7.3 Bant 2 (>%45) dagitim ZORUNLU ama 3+ bacak gecen uygun yeni isim yok; GARAN/TUPRS/TOASO bilanco oncesi yasakli. Fazlalik devreder. bkz. rapor 2026-10-05 S5
