@@ -400,3 +400,8 @@ date,ticker,weight_pct,delta_pp,trigger
 2026-10-05,TUPRS,5,-5,"L94 trim bacagi FIRED 09-30: uc ardisik settled <settled-EMA20 (398,25/383,25/376,25) -> %10->%5. 345 sayaci 0/3. bkz. rapor 2026-10-05 S3"
 2026-10-05,TOASO,4,-4,"L216 trim bacagi FIRED 09-30: uc ardisik settled <settled-EMA20 (278,75/277,00/262,00), yeni katalizor yok -> %8->%4. Stop 242. bkz. rapor 2026-10-05 S3"
 2026-10-05,CASH,56,14,Uc trimin mekanik sonucu (+14). 7.3 Bant 2 (>%45) dagitim ZORUNLU ama 3+ bacak gecen uygun yeni isim yok; GARAN/TUPRS/TOASO bilanco oncesi yasakli. Fazlalik devreder. bkz. rapor 2026-10-05 S5
+2026-10-06,GARAN,22,0,"tetik yok -> SABIT. L27 <120 0/3 (10-05 settled 130,40), settled RSI 50,8 (>=38). L160 >137,80 uzak. Bilanco oncesi ekleme yasagi (KAP 10-28). bkz. rapor 2026-10-06 S5"
+2026-10-06,BIMAS,13,0,"tetik yok -> SABIT. L202 <405 0/3 (10-05 settled 413,50). L225 Q3 (11-09) bekliyor. Deger bacagi dusuk -> 7.3 dagitimi alamaz. bkz. rapor 2026-10-06 S5"
+2026-10-06,TUPRS,5,0,"tetik yok -> SABIT. L94 <345 0/3 (10-05 settled 391,25); artis kapisi >420 uzak. L205 ekleme yasagi. bkz. rapor 2026-10-06 S5"
+2026-10-06,TOASO,4,0,"tetik yok -> SABIT. L216 hard 242 (10-05 settled 264,75, tampon %8,6). Q3 (10-28) artis kapisi bekliyor. bkz. rapor 2026-10-06 S5"
+2026-10-06,CASH,56,0,"tetik yok -> SABIT. 7.3 Bant 2 gun 2: 3+ bacak gecen yeni isim 0 (TTKOM 2, YKBNK 2); GARAN/TUPRS/TOASO bilanco oncesi yasakli. Dagitim 0, fazlalik 11 devreder. bkz. rapor 2026-10-06 S5"
