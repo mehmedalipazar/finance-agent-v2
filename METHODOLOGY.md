@@ -460,6 +460,36 @@ Satış kapıları koşulsuz ateşlerken alış kapılarının açılmaması, §
   ve TUPRS'ta ağırlık artışı yok) bu mekanizmanın **üzerindedir** — yani %45 üstü zorunlu
   dağıtım o üç isme YAPILAMAZ, yeni bir isim bulunmak zorundadır.
 
+### 7.4 FİYAT EŞİKLİ TAM KESİM KALDIRILDI — ön-kayıtlı sınırın uygulanması (2026-10-07)
+
+**Ön-kayıt (rapor 2026-09-23):** *"§D'nin doğru kesim sayacı 10 ölçülen seans daha 0/10'da
+kalırsa, fiyat-eşikli kesim kuralı METHODOLOGY'de yeniden yazılacaktır."* Sayaç takvim günüyle
+değil **ölçülen seansla** ilerletildi (kesinti günleri sayılmadı). 2026-10-06 kesinleşmiş
+kapanışıyla **10/10 ölçülen seans** doldu: doğru kesim **0/10**, net **−126,21pp**
+(09-22: −91,61pp). 10 kesimin 10'u fiyat eşiğiyle ateşlendi, hiçbiri tez bacağının taze veriyle
+çökmesiyle ateşlenmedi. Sınır, v1'in "n=3 → rafa kaldır" hatası tekrarlanmasın diye ön-kayıtlıydı;
+bu bölüm onu uygular.
+
+**Kural (2026-10-07'den itibaren bağlayıcı).** Açık bir pozisyonda **TAM KESİM** yalnızca şu
+iki yoldan biriyle yapılır:
+1. **Hard stop (sermaye koruma):** girişten **%−15 veya daha derin** bir seviyede, tek
+   kesinleşmiş kapanışla (§7.2 istisnası, değişmedi).
+2. **Tez çöküşü:** tezin büyüme/kazanç bacağı **taze KAP verisiyle** çöker — §5.3 faaliyet kârı
+   YoY REEL negatife döner (banka/sigortada: KAP-teyitli EPS miss). Değer bacağının emsal
+   de-rating'iyle düşmesi tek başına tez çöküşü DEĞİLDİR (7.19).
+
+**Hard stop dışındaki her fiyat eşiği** (üç ardışık kapanış dahil) en fazla **ağırlığı yarıya
+indirir (TRIM)**; aynı pozisyonda ikinci bir fiyat trimi, ilkinden sonra en az 20 ölçülen seans
+geçmeden yapılamaz. Mevcut "üç ardışık settled < X → TAM KESİM" tetikleri bu tarihte
+"→ yarıya TRIM" olarak yeniden yazılır; seviyeler ve hard stoplar DEĞİŞMEZ.
+
+**ÇÜRÜTME TESTİ (KURAL 10).** Bu kural da yanlışlanabilir olmalıdır. Eski kuralın TAM KESİM
+yapacağı ama yeni kuralın yalnızca trimlediği her vaka bir **karşı-olgusal kesim** olarak
+`triggers.csv`'ye işlenir ve §4.2 formülüyle (tutulan yarının alfası) ölçülür. **Üç ölçülmüş
+karşı-olgusal vakanın** net faydası eski kural lehine pozitifse §7.4 geri alınır. Geri alma eşiği
+(n=3), kabul eşiğinden (10 ölçülen seans, 10 kesim) **düşüktür** — §7.1 md.3 karşıt kanıt
+eşiğinin destekleyenden yüksek olmasını yasaklar, düşük olmasını yasaklamaz.
+
 ## 8. Tarihçe notları
 
 - v1 dönemi raporları (2026-06-16 → 09-17, 66 adet) bu repoda tutulmaz; arşiv:
