@@ -435,3 +435,9 @@ date,ticker,weight_pct,delta_pp,trigger
 2026-10-13,TOASO,4,0,"KISMI VERI KESINTISI -> OLCULEMEDI (6.1): MCP baglanamadi; fetch_closes exit 3 (10-12 hisse barlari NULL). KURAL 9: SABIT. L216 hard 242 son tampon %9,5 @10-09. Ikinci trim §7.4 kilidinde. bkz. rapor 2026-10-13 S3"
 2026-10-13,YKBNK,5,0,KISMI VERI KESINTISI -> OLCULEMEDI (6.1): MCP baglanamadi; fetch_closes exit 3 (10-12 hisse barlari NULL). KURAL 9: SABIT. L232 <settled-EMA20 sayaci 2/3'te DONDU (10-12 settled yok) -> yariya trim YAPILMADI. bkz. rapor 2026-10-13 S3
 2026-10-13,CASH,57.5,0,"KISMI VERI KESINTISI -> OLCULEMEDI (6.1): MCP baglanamadi; fetch_closes exit 3 (10-12 hisse barlari NULL). KURAL 9: SABIT. L230 gun 7: tarama yok (KURAL 2) -> dagitim 0; fazlalik 17,5 devreder. bkz. rapor 2026-10-13 S3"
+2026-10-14,GARAN,22,0,"tetik yok -> SABIT. 10-12/10-13 settled 129,80/131,30: L27 0/3, RSI 52,7; hard 118 tampon %11,3. L160 uzak. Bilanco oncesi ekleme yasagi (KAP 10-28). bkz. rapor 2026-10-14 S6"
+2026-10-14,BIMAS,6.5,0,"tetik yok -> SABIT. L234 hard 328 tampon %25,4 (10-13 settled 411,25). Ikinci fiyat trimi 20 seans kilitli. L233 vaka 1 ara okuma +2,24pp (tutulan yari lehte). bkz. rapor 2026-10-14 S6"
+2026-10-14,TUPRS,5,0,"tetik yok -> SABIT. L94 <345 0/3 (10-13 settled 385,75); hard 323 tampon %19,4. L205 + bilanco oncesi yasak (10-29). bkz. rapor 2026-10-14 S6"
+2026-10-14,TOASO,4,0,"tetik yok -> SABIT. L216 hard 242: 10-13 settled 260,50 tampon %7,6 (en dar). Ikinci trim §7.4 kilidinde. Q3 KAP 10-28. bkz. rapor 2026-10-14 S6"
+2026-10-14,YKBNK,2.5,-2.5,"L232 FIRED (geriye donuk): 10-08/10-09/10-12 settled 35,66/35,44/35,70 < settled-EMA20 35,85/35,81/35,80 -> 3/3 -> §7.4 YARIYA TRIM %5->%2,5, infaz 10-14 kapanisi. L233 vaka 2. bkz. rapor 2026-10-14 S2"
+2026-10-14,CASH,60,2.5,"YKBNK trimi (L232) -> +2,5. L230 gun 8: 3+ bacak gecen yeni isim 0 (ENERY/EKGYO/OTKAR 5.3'te, BALSU olculemedi, EFOR deger) -> dagitim 0; fazlalik 20 devreder. bkz. rapor 2026-10-14 S5"
