@@ -447,3 +447,9 @@ date,ticker,weight_pct,delta_pp,trigger
 2026-10-15,TOASO,4,0,"tetik yok -> SABIT. L216 hard 242: 10-14 settled 250,25 tampon %3,4 (en dar; gun-ici 247,7 %2,4). Tek settled <242 -> TAM KESIM. Ikinci trim §7.4 kilidinde. Q3 KAP 10-28. bkz. rapor 2026-10-15 S2"
 2026-10-15,YKBNK,2.5,0,"tetik yok -> SABIT. L232 trimi 10-14 kapanisinda (35,94) infaz edildi. L236 hard 31,00 tampon %15,9. Ikinci fiyat trimi kilitli. L233 vaka 2 ara +0,94pp. bkz. rapor 2026-10-15 S6"
 2026-10-15,CASH,60,0,tetik yok -> SABIT. L230 gun 9: 3+ bacak gecen yeni isim 0 (TAVHL F/K kolu + 5.3 duser: faal. H1 +%22,7 nom < TUFE; PAHOL F/K kolu duser) -> dagitim 0; fazlalik 20 devreder. bkz. rapor 2026-10-15 S3
+2026-10-16,GARAN,22,0,"OLCULEMEDI -> SABIT. 10-15 settled defterde yok (kismi kesinti, L237). L27 son 0/3 @10-14 (130,50); hard 118 son tampon %10,6. Bilanco oncesi ekleme yasagi (KAP 10-28). bkz. rapor 2026-10-16 S3"
+2026-10-16,BIMAS,6.5,0,"OLCULEMEDI -> SABIT. L234 hard 328 son tampon %24,4 @10-14. Ikinci fiyat trimi kilitli. L233 vaka 1 bugun ilerlemedi. bkz. rapor 2026-10-16 S3"
+2026-10-16,TUPRS,5,0,OLCULEMEDI -> SABIT. L94 <345 son 0/3 @10-14; hard 323. L205 + bilanco oncesi yasak (10-29). bkz. rapor 2026-10-16 S3
+2026-10-16,TOASO,4,0,"OLCULEMEDI -> SABIT. L216 hard 242: son settled 250,25 @10-14. Ledger-disi Yahoo gun-ici 10-16 ~241 (<242, tek kaynak, karar girdisi DEGIL). 10-15/10-16 settled kronolojik olculecek. bkz. rapor 2026-10-16 S2"
+2026-10-16,YKBNK,2.5,0,"OLCULEMEDI -> SABIT. L236 hard 31,00 son tampon %15,9 @10-14. Ikinci fiyat trimi kilitli. bkz. rapor 2026-10-16 S3"
+2026-10-16,CASH,60,0,"OLCULEMEDI -> SABIT. L230 gun 10: tarama yok (MCP kapali, KURAL 2) -> dagitim 0; fazlalik 20 devreder. bkz. rapor 2026-10-16 S3"
