@@ -471,3 +471,8 @@ date,ticker,weight_pct,delta_pp,trigger
 2026-10-21,TOASO,0,-4,"POZISYON KAPANDI - L216 HARD STOP geriye donuk ateslendi: 10-19 settled 235,00 < 242 (giris -%19,0). Cikis = 10-19 settled (L238 on-kaydi). bkz. rapor 2026-10-21 S2"
 2026-10-21,YKBNK,2.5,0,"tetik yok -> SABIT. 10-19 settled 36,10: L236 hard 31,00 tampon %14,1. Ikinci fiyat trimi kilitli. bkz. rapor 2026-10-21 S3"
 2026-10-21,CASH,64,4,"NAKIT %60 -> %64: TOASO hard stop kesiminin MEKANIK sonucu (karar degil). L230 gun 13: tarama yok (MCP kapali, KURAL 2) -> dagitim 0; fazlalik 24 devreder. bkz. rapor 2026-10-21 S3"
+2026-10-22,GARAN,22,0,"tetik yok -> SABIT. 10-20 settled 134,60: L27 <120 sayaci 0/3, settled RSI 57,5 (>=38), hard 118 tampon %12,3. Bilanco oncesi ekleme yasagi (KAP 10-28). bkz. rapor 2026-10-22 S3"
+2026-10-22,BIMAS,6.5,0,"tetik yok -> SABIT. 10-20 settled 385,50: L234 hard 328 tampon %14,9. Ikinci fiyat trimi kilitli (§7.4, ~11-09). bkz. rapor 2026-10-22 S3"
+2026-10-22,TUPRS,5,0,"tetik yok -> SABIT. 10-20 settled 362,00 > 345: L94 sayaci 0/3 (tampon %4,7), hard 323. L205 + bilanco oncesi yasak (10-29). bkz. rapor 2026-10-22 S3"
+2026-10-22,YKBNK,2.5,0,"tetik yok -> SABIT. 10-20 settled 36,66: L236 hard 31,00 tampon %15,4. Ikinci fiyat trimi kilitli. bkz. rapor 2026-10-22 S3"
+2026-10-22,CASH,64,0,"tetik yok -> SABIT. L230 gun 14: MCP kapali, tarama/temel veri yok (KURAL 2) -> dagitim 0; fazlalik 24 devreder. bkz. rapor 2026-10-22 S3"
