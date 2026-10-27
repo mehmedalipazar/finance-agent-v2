@@ -486,3 +486,8 @@ date,ticker,weight_pct,delta_pp,trigger
 2026-10-26,TUPRS,5,0,"tetik yok -> SABIT. 10-23 settled 360,75 > 345: L94 sayaci 0/3 (tampon %4,4), hard 323 tampon %10,5. L205 + bilanco oncesi yasak (10-29). bkz. rapor 2026-10-26 S3"
 2026-10-26,YKBNK,2.5,0,"tetik yok -> SABIT. 10-23 settled 34,68: L236 hard 31,00 tampon %10,6. Ikinci fiyat trimi kilitli. L45: ek finansal ekleme yasak. bkz. rapor 2026-10-26 S3"
 2026-10-26,CASH,64,0,"tetik yok -> SABIT. L230 gun 16: kismi kesinti, huni olculemedi (KURAL 2) -> dagitim 0; yol 3 kapali (yasak 10-29, L45). Fazlalik 24 devreder. bkz. rapor 2026-10-26 S3"
+2026-10-27,GARAN,22,0,"OLCULEMEDI -> SABIT (KURAL 9). 10-26 settled bari kaynakta NULL (L241); L27 0/3 @10-23, hard 118 tampon %6,7 @10-23. Bilanco oncesi ekleme yasagi (KAP 10-28). bkz. rapor 2026-10-27 S3"
+2026-10-27,BIMAS,6.5,0,"OLCULEMEDI -> SABIT (KURAL 9). 10-26 settled yok (L241); L234 hard 328 tampon %12,1 @10-23. Ikinci fiyat trimi kilitli (~11-09). bkz. rapor 2026-10-27 S3"
+2026-10-27,TUPRS,5,0,"OLCULEMEDI -> SABIT (KURAL 9). 10-26 settled yok (L241); L94 <345 sayaci 0/3 @10-23, hard 323. L205 + bilanco oncesi yasak (10-29). bkz. rapor 2026-10-27 S3"
+2026-10-27,YKBNK,2.5,0,"OLCULEMEDI -> SABIT (KURAL 9). 10-26 settled yok (L241); L236 hard 31,00 tampon %10,6 @10-23. Ikinci fiyat trimi kilitli. L45. bkz. rapor 2026-10-27 S3"
+2026-10-27,CASH,64,0,"OLCULEMEDI -> SABIT. L230 gun 17: tarama yok (MCP kapali, KURAL 2) -> dagitim 0; yol 3 kapali (yasak 10-29, L45). Fazlalik 24 devreder. bkz. rapor 2026-10-27 S3"
