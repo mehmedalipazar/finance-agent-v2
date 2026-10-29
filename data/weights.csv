@@ -496,3 +496,8 @@ date,ticker,weight_pct,delta_pp,trigger
 2026-10-28,TUPRS,5,0,"TETIK YOK -> SABIT. 10-26 364,50 / 10-27 361,50 > 345 (L94 0/3), hard 323. Ekleme yasagi (L205 + bilanco 10-29) suruyor. bkz. rapor 2026-10-28 S3"
 2026-10-28,YKBNK,2.5,0,"TETIK YOK -> SABIT. 10-27 settled 35,38 > hard 31,00 (tampon %12,4). Ikinci fiyat trimi kilitli; L45 ek finansal yasak. Q3 KAP 11-03. bkz. rapor 2026-10-28 S3"
 2026-10-28,CASH,64,0,"TETIK YOK -> SABIT. L230 gun 18: huni olculdu, 3+ bacak yeni isim 0 (TCKRC 2 bacak). Yol 3 kapali (TUPRS/GARAN yasak 10-30'a kadar, L45). Fazlalik 24 devreder. bkz. rapor 2026-10-28 S4"
+2026-10-29,GARAN,22,0,"TETIK YOK -> SABIT. 10-28 settled 126,70 > 120 ve 118 (L27 0/3, settled RSI 43,8). Q3 KAP beslemeye dusmedi (L243/L29 sayaci basladi); tez bacagi olculemedi, aksiyon yok. bkz. rapor 2026-10-29 S3"
+2026-10-29,BIMAS,6.5,0,"TETIK YOK -> SABIT. 10-28 settled 364,75 > hard 328 (tampon %11,2). Ikinci fiyat trimi kilitli (~11-09). Q3 KAP 11-09 (L234/L225). bkz. rapor 2026-10-29 S3"
+2026-10-29,TUPRS,5,0,"TETIK YOK -> SABIT. 10-28 settled 355,00 > 345 (L94 0/3, tampon %2,9), hard 323. Q3 KAP bugun (bayram); ekleme yasagi (L205 + bilanco) 10-30'a kadar. bkz. rapor 2026-10-29 S3"
+2026-10-29,YKBNK,2.5,0,"TETIK YOK -> SABIT. 10-28 settled 34,48 > hard 31,00 (tampon %11,2). Ikinci fiyat trimi kilitli; L45 ek finansal yasak. Q3 KAP 11-03. bkz. rapor 2026-10-29 S3"
+2026-10-29,CASH,64,0,"TETIK YOK -> SABIT. L230 gun 19: huni olculdu, 3+ bacak yeni isim 0. Yol 3 kapali (TUPRS KAP bugun, GARAN L45). Fazlalik 24 devreder. Bayram: seans yok. bkz. rapor 2026-10-29 S4"
