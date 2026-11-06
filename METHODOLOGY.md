@@ -490,6 +490,17 @@ karşı-olgusal vakanın** net faydası eski kural lehine pozitifse §7.4 geri a
 (n=3), kabul eşiğinden (10 ölçülen seans, 10 kesim) **düşüktür** — §7.1 md.3 karşıt kanıt
 eşiğinin destekleyenden yüksek olmasını yasaklar, düşük olmasını yasaklamaz.
 
+**ÖLÇÜM UFKU (2026-11-06; L246, 11-02'de ön-kayıtlı).** Bir karşı-olgusal vaka şu iki andan
+**hangisi önce gelirse** o anda **ölçülmüş** sayılır: (a) aynı pozisyonun **ilk tam kesimi**
+(hard stop veya tez çöküşü — tutulan yarı o kapanışta donar), (b) çıpa seansından (eski kuralın
+keseceği settled kapanış) itibaren **60 ölçülen seans** (§6.2 izleme penceresiyle aynı ufuk).
+Ölçüm §4.2 formülüyle yapılır: eski kuralın realize alfası (çıpada donar) − tutulan yarının
+alfası (ölçüm anında donar); pozitif = eski kural lehine. Ufuk dolmadan yazılan ara okuma
+⏳ olarak etiketlenir ve geri alma kararına **girmez**. Ufuk, vakalar ölçülmeden ÖNCE ve hiçbir
+ara okumaya bakılmadan sabitlenmiştir (§7.1 md.4). **Trim kilidi** (ikinci fiyat trimi için 20
+ölçülen seans) pozisyondaki **ilk fiyat trimi** seansından başlar; bunun mekanik denetimi
+`validate_ledger.py`'ye henüz eklenmemiştir (L246 açık kalır).
+
 ## 8. Tarihçe notları
 
 - v1 dönemi raporları (2026-06-16 → 09-17, 66 adet) bu repoda tutulmaz; arşiv:
