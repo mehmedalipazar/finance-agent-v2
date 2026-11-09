@@ -460,6 +460,25 @@ Satış kapıları koşulsuz ateşlerken alış kapılarının açılmaması, §
   ve TUPRS'ta ağırlık artışı yok) bu mekanizmanın **üzerindedir** — yani %45 üstü zorunlu
   dağıtım o üç isme YAPILAMAZ, yeni bir isim bulunmak zorundadır.
 
+**TEK-İSİM TAVANI (2026-11-09; L249'un ön-kaydının uygulanması).** 11-06'da Bant 2 dağıtımı üç
+ardışık kez aynı isme (TCKRC %10 → %15 → %20) gitti ve ismin riskli-varlık payı %37,4'e çıktı.
+L249 o gün, dağıtım bir kez daha aynı isme yönelirse tavanın ÖNCE buraya yazılacağını ön-kayıt
+etti; 11-09'da yöneldi. Seviye ROOT-CAUSE §6'dan gelir: v1'de GARAN'ın %22–25'lik sürekli
+ağırlığı "yoğunlaşma sorgulanmadı" diye kayda geçmişti — yani program o bandı zaten
+sorgulanmamış yoğunlaşma olarak ölçmüştü.
+
+- Bir isme yapılan **ağırlık ARTIŞI**, artış sonrası mutlak ağırlık **%20'yi** VEYA ismin
+  riskli-varlık (nakit hariç) içindeki payı **%40'ı** aşacaksa YAPILAMAZ. Bütün artış kaynakları
+  için geçerlidir (Bant 1/2 dağıtımı, ön-kayıtlı ekleme tetikleri).
+- Tavan **ileriye dönüktür**: tavanın üstündeki mevcut ağırlık zorla düşürülmez. Tavan bir tez
+  tetiği değildir (KURAL 9a); yalnızca artışı kapatır.
+- Tavan yüzünden Bant 2'nin alıcısı kalmazsa fazlalık **devreder**; rapor bunu "tavan nedeniyle
+  alıcı yok" diye yazar (yoğunlaşma tavanları zaten "her hâlükârda bağlayıcıdır").
+- **ÇÜRÜTME TESTİ (KURAL 10):** tavan yüzünden yapılamayan her dağıtım, o günün kesinleşmiş
+  kapanışıyla karşı-olgusal ekleme olarak `triggers.csv`'ye işlenir. 60 ölçülen seans sonunda
+  karşı-olgusal eklemelerin toplam alfası (nakde göre, §4.2 formülü) **pozitifse** tavan
+  gevşetilmek üzere yeniden yazılır.
+
 ### 7.4 FİYAT EŞİKLİ TAM KESİM KALDIRILDI — ön-kayıtlı sınırın uygulanması (2026-10-07)
 
 **Ön-kayıt (rapor 2026-09-23):** *"§D'nin doğru kesim sayacı 10 ölçülen seans daha 0/10'da
