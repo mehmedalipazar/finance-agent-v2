@@ -555,3 +555,10 @@ date,ticker,weight_pct,delta_pp,trigger
 2026-11-11,YKBNK,2.5,0,"tetik yok -> SABIT. Settled 38,48: hard 31,00 tampon %24,1. Deger F/K 6,38 > 4,51. L29 askisi. bkz. rapor 2026-11-11 S3"
 2026-11-11,TCKRC,20,0,"tetik yok -> SABIT. Settled 123,50: L244 0/3, hard 89,67 tampon %37,7. Dort bacak gecer ama §7.3 tek-isim tavaninda (%20) -> artis yok (L250 vaka 2). bkz. rapor 2026-11-11 S3"
 2026-11-11,CASH,46.5,0,"L230 gun 28: Bant 2 zorunlu ama alici yok (yeni isim 0; yol 3 TCKRC tavanda). Dagitim 0, fazlalik 6,5 devreder. bkz. rapor 2026-11-11 S3"
+
+2026-11-12,GARAN,22,0,"tetik yok -> SABIT (KURAL 9). Settled 11-11 154,80: L27 0/3, hard 118 tampon %31,2; settled RSI 75,3. Deger F/K 5,25 > XBANK ex-target 4,41. Q3 statements geldi, beat olculemedi (L252). bkz. rapor 2026-11-12 S3"
+2026-11-12,BIMAS,6.5,0,"tetik yok -> SABIT. Settled 377,50: hard 328 tampon %15,1. Q3 beslemede yok -> L29 3/3 ASKI; L225/L234 yol 2 olculemedi. Deger F/K 13,05 > XUHIZ ex-target 12,47. bkz. rapor 2026-11-12 S3"
+2026-11-12,TUPRS,2.5,0,"tetik yok -> SABIT. Settled 11-11 348,50 > hard 323 (tampon %7,9). Yol 2 ASKI (L29, Q3 beslemede yok). L205 ekleme yasak; 2. trim kilitli (~12-03). bkz. rapor 2026-11-12 S3"
+2026-11-12,YKBNK,2.5,0,"tetik yok -> SABIT. Settled 38,44: hard 31,00 tampon %24,0. Q3 net kar YoY -%29,2 nom ama EPS miss konsensuse gore olculemedi (L252) -> yol 2 ateslemez. bkz. rapor 2026-11-12 S2-S3"
+2026-11-12,TCKRC,20,0,"tetik yok -> SABIT. Settled 11-11 114,10 (-%7,6 tek seans, aciklanamayan; 7.9): L244 0/3, hard 89,67 tampon %27,2. §7.3 tavanda -> artis yok (L250 vaka 3). bkz. rapor 2026-11-12 S3"
+2026-11-12,CASH,46.5,0,"L230 gun 29: Bant 2 zorunlu ama alici yok (yeni isim 0; yol 3 TCKRC tavanda). Dagitim 0, fazlalik 6,5 devreder. bkz. rapor 2026-11-12 S3"
