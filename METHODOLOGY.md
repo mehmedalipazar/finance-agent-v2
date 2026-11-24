@@ -214,6 +214,16 @@ tutarlı.**
 listesinden düşmüş, liste 5'ten 4'e inmiştir. Kural, bir raporun sonucuna bakılarak değil,
 bir gün önce ön-kayıt edilerek yazılmıştır (§7.1 madde 4).
 
+**ALAN TANIMI (2026-11-24; L254, 11-20'de n=2 eşiğiyle ön-kayıtlı).** `get_financial_statements`
+ayrık-çeyrek beslemesi (last_n≤2, yfinance biçimi) faaliyet kârı için iki alan döndürür:
+`Operating Income` ve `Total Operating Income As Reported`. İkisi iki vakada zıt sonuç verdi
+(PGSUS 11-20 eşik yakınında, AKSA 11-23 işaret düzeyinde). **Kural:** büyüme bacağı ancak **iki
+alan da** YoY REEL pozitif (veya zarardan kâra) ise geçer; alanlar çelişirse bacak **GEÇMEDİ**
+sayılır (muhafazakâr okuma; "ölçülemedi" değil, çünkü iki alan da ölçülmüştür). Yalnızca tek
+alan döndüyse o alan kullanılır ve rapor bunu yazar. Tanım, ara dönemde uygulanan muhafazakâr
+kuralın aynısıdır; hiçbir vakanın sonucuna bakılarak seçilmemiştir ve yalnızca ileriye dönüktür.
+**Çürütme:** yalnızca alan çelişkisi yüzünden elenen isimler L217 kohortuna eklenir.
+
 **ÇÜRÜTME TESTİ (KURAL 10 — bu kural da yanlışlanabilir olmalıdır).** Bu bacak yüzünden
 **elenen** isimler `triggers.csv`'de kaydedilir ve 60 seans boyunca izlenir. Elenen isimlerin
 eşit-ağırlık alfası, aynı dönemde **alınan** isimlerin alfasını **aşarsa**, kural yanlışlanmış
