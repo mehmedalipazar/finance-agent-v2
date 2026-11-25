@@ -609,3 +609,8 @@ date,ticker,weight_pct,delta_pp,trigger
 2026-11-24,YKBNK,2.5,0,"tetik yok -> SABIT. Settled 11-23 36,80: hard 31,00 tampon %18,7. Yol 2 olculemedi (L252). Deger ✗ -> yol 3 alicisi degil. bkz. rapor 2026-11-24 S3"
 2026-11-24,TCKRC,20,0,"tetik yok -> SABIT. Settled 11-23 118,50: L244 0/3, hard 89,67 tampon %32,2. 3 bacak ✓, trend ✗ (118,50 < EMA20 118,98). §7.3 tavaninda (%20) -> L250 vaka 6 (karsi-olgusal +5pp). bkz. rapor 2026-11-24 S3"
 2026-11-24,CASH,49,0,"tetik yok -> SABIT %49. §7.3 Bant 2 ZORUNLU ama alici yok: 4 bacak 0; 3 bacak TCKRC tavan, KCAER deger ✗; yol 3 BIMAS deger ✗ (12,8>12,42), GARAN tavan, YKBNK deger ✗ -> dagitim 0, 9 puan devreder. bkz. rapor 2026-11-24 S3"
+2026-11-25,GARAN,22,0,"tetik yok -> SABIT (KURAL 9). Settled 11-24 143,30: L27 0/3, RSI 53,0, hard 118 tampon %21,4. F/K 4,9; %20 tavaninin ustunde -> yol 3 alicisi degil. bkz. rapor 2026-11-25 S3"
+2026-11-25,BIMAS,6.5,0,"tetik yok -> SABIT. Settled 11-24 368,00: hard 328 tampon %12,2. 11-24 on-kaydi olculdu: kol (i) F/K 12,7 > 12,30 (n=18) ✗, kol (ii) EV/FAVOK 7,9 > 6,1 (n=9) ✗ -> ekleme YOK. bkz. rapor 2026-11-25 S3"
+2026-11-25,YKBNK,2.5,0,"tetik yok -> SABIT. Settled 11-24 35,72: hard 31,00 tampon %15,2. Yol 2 olculemedi (L252). Deger ✗ (F/K 5,9) -> yol 3 alicisi degil. bkz. rapor 2026-11-25 S3"
+2026-11-25,TCKRC,20,0,"tetik yok -> SABIT. Settled 11-24 116,00: L244 0/3, hard 89,67 tampon %29,4. 3 bacak ✓ (F/K 7,37 < 11,27), trend ✗. §7.3 tavaninda (%20) -> L250 vaka 7 (karsi-olgusal +5pp). bkz. rapor 2026-11-25 S3"
+2026-11-25,CASH,49,0,"tetik yok -> SABIT %49. §7.3 Bant 2 ZORUNLU, 3. gun alici yok: 4 bacak 0; 3 bacak TCKRC tavan; yol 3 BIMAS iki kol ✗, GARAN tavan, YKBNK deger ✗ -> dagitim 0, 9 puan devreder. bkz. rapor 2026-11-25 S3"
